@@ -258,7 +258,10 @@ pub enum DataKey {
     MerchantVacation(Address),
     /// Coupon code bound to a subscription (persistent). Discriminant 68.
     SubCoupon(u32),
-    /// Per-merchant multi-sig withdrawal quorum config (instance). Discriminant 69.
+    /// Per-subscription per-coupon redemption flag (persistent). Discriminant 69.
+    /// Tracks whether a specific (subscription_id, coupon_code) pair has been redeemed.
+    SubCouponRedeemed(u32, soroban_sdk::Symbol),
+    /// Per-merchant multi-sig withdrawal quorum config (instance). Discriminant 70.
     MerchantMultiSig(Address),
     /// Count of a subscriber's currently-`Active` subscriptions (instance). Discriminant 70.
     SubscriberActiveCount(Address),
@@ -361,16 +364,17 @@ impl DataKey {
             DataKey::AutoPauseThreshold => 66,
             DataKey::BuyoutPremiumBps => 67,
             DataKey::SubCoupon(_) => 68,
-            DataKey::MerchantMultiSig(_) => 69,
-            DataKey::SubscriberActiveCount(_) => 70,
-            DataKey::SubscriberActiveCapOverride(_) => 71,
-            DataKey::TagAllowlist => 72,
-            DataKey::MerchantTags(_) => 73,
-            DataKey::FeeToken => 74,
-            DataKey::CancellationEscrow(_) => 75,
-            DataKey::MerchantFeeBps(_) => 76,
-            DataKey::OraclePriceHistoryMeta(_) => 77,
-            DataKey::OraclePriceHistoryEntry(_, _) => 78,
+            DataKey::SubCouponRedeemed(_, _) => 69,
+            DataKey::MerchantMultiSig(_) => 70,
+            DataKey::SubscriberActiveCount(_) => 71,
+            DataKey::SubscriberActiveCapOverride(_) => 72,
+            DataKey::TagAllowlist => 73,
+            DataKey::MerchantTags(_) => 74,
+            DataKey::FeeToken => 75,
+            DataKey::CancellationEscrow(_) => 76,
+            DataKey::MerchantFeeBps(_) => 77,
+            DataKey::OraclePriceHistoryMeta(_) => 78,
+            DataKey::OraclePriceHistoryEntry(_, _) => 79,
         }
     }
 
