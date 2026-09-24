@@ -59,6 +59,14 @@ pub const IDEM_HISTORY: u32 = 64;
 /// Maximum fee in basis points (100.00%).
 pub const MAX_FEE_BIPS: i32 = 10000;
 
+/// Oracle price sanity band: minimum allowed price in basis points relative to reference.
+/// A price below this threshold is considered invalid.
+pub const ORACLE_PRICE_MIN_BPS: u32 = 100; // 1% of reference
+
+/// Oracle price sanity band: maximum allowed price in basis points relative to reference.
+/// A price above this threshold is considered invalid.
+pub const ORACLE_PRICE_MAX_BPS: u32 = 1000000; // 10000% of reference
+
 /// Hard cap for the *protocol* fee (5.00%).
 ///
 /// `MAX_FEE_BIPS` (10 000) is the absolute ceiling used for per-merchant
@@ -67,6 +75,9 @@ pub const MAX_FEE_BIPS: i32 = 10000;
 /// treasury.  Any call to `set_protocol_fee` / `queue_treasury_change`
 /// with a value above this limit is rejected with `ProtocolFeeTooHigh`.
 pub const MAX_PROTOCOL_FEE_BIPS: u32 = 500;
+
+/// Oracle price invalid error code.
+pub const ORACLE_PRICE_INVALID_CODE: u32 = 3007;
 
 /// Ring buffer for subscription-scoped idempotency hashes.
 ///
